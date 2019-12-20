@@ -1,0 +1,21 @@
+server:
+  port: 80
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/health?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 12345
+    hikari:
+      minimum-idle: 8
+      maximum-pool-size: 20
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  aop:
+    auto: true
+mybatis:
+  type-aliases-package: com.vanilla.healthmanagement.pojo
+logging:
+  level:
+    com.neuedu.dao: debug
