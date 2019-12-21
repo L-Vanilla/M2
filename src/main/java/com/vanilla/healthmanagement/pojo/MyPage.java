@@ -1,4 +1,4 @@
-package com.vanilla.test.pojo;
+package com.vanilla.healthmanagement.pojo;
 
 import lombok.Data;
 

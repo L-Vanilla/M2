@@ -1,16 +1,13 @@
 package com.vanilla.healthmanagement.pojo;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class News extends com.vanilla.test.pojo.MyPage implements Serializable {
+public class News extends MyPage {
     private Integer id;
 
     private String title;
 
-    private String content;
-
-    private String img;
+    private String imgname;
 
     private Integer clickNum;
 
@@ -21,6 +18,8 @@ public class News extends com.vanilla.test.pojo.MyPage implements Serializable {
     private Integer publisherId;
 
     private String publisherName;
+
+    private String content;
 
     public Integer getId() {
         return id;
@@ -38,20 +37,12 @@ public class News extends com.vanilla.test.pojo.MyPage implements Serializable {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getContent() {
-        return content;
+    public String getImgname() {
+        return imgname;
     }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img == null ? null : img.trim();
+    public void setImgname(String imgname) {
+        this.imgname = imgname == null ? null : imgname.trim();
     }
 
     public Integer getClickNum() {
@@ -92,5 +83,13 @@ public class News extends com.vanilla.test.pojo.MyPage implements Serializable {
 
     public void setPublisherName(String publisherName) {
         this.publisherName = publisherName == null ? null : publisherName.trim();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 }

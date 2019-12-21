@@ -4,13 +4,15 @@
   <resultMap id="BaseResultMap" type="com.vanilla.healthmanagement.pojo.News">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="imgname" jdbcType="VARCHAR" property="imgname" />
     <result column="click_num" jdbcType="INTEGER" property="clickNum" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="active" jdbcType="INTEGER" property="active" />
     <result column="publisher_id" jdbcType="INTEGER" property="publisherId" />
     <result column="publisher_name" jdbcType="VARCHAR" property="publisherName" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.vanilla.healthmanagement.pojo.News">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,8 +73,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, content, img, click_num, create_date, active, publisher_id, publisher_name
+    id, title, imgname, click_num, create_date, active, publisher_id, publisher_name
   </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.vanilla.healthmanagement.pojo.NewsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from news
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.vanilla.healthmanagement.pojo.NewsExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -87,9 +108,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from news
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -104,13 +127,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.vanilla.healthmanagement.pojo.News">
-    insert into news (id, title, content, 
-      img, click_num, create_date, 
-      active, publisher_id, publisher_name
+    insert into news (id, title, imgname, 
+      click_num, create_date, active, 
+      publisher_id, publisher_name, content
       )
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      #{img,jdbcType=VARCHAR}, #{clickNum,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{active,jdbcType=INTEGER}, #{publisherId,jdbcType=INTEGER}, #{publisherName,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{imgname,jdbcType=VARCHAR}, 
+      #{clickNum,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}, 
+      #{publisherId,jdbcType=INTEGER}, #{publisherName,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.vanilla.healthmanagement.pojo.News">
@@ -122,11 +145,8 @@
       <if test="title != null">
         title,
       </if>
-      <if test="content != null">
-        content,
-      </if>
-      <if test="img != null">
-        img,
+      <if test="imgname != null">
+        imgname,
       </if>
       <if test="clickNum != null">
         click_num,
@@ -143,6 +163,9 @@
       <if test="publisherName != null">
         publisher_name,
       </if>
+      <if test="content != null">
+        content,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -151,11 +174,8 @@
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="img != null">
-        #{img,jdbcType=VARCHAR},
+      <if test="imgname != null">
+        #{imgname,jdbcType=VARCHAR},
       </if>
       <if test="clickNum != null">
         #{clickNum,jdbcType=INTEGER},
@@ -171,6 +191,9 @@
       </if>
       <if test="publisherName != null">
         #{publisherName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -189,11 +212,8 @@
       <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.content != null">
-        content = #{record.content,jdbcType=VARCHAR},
-      </if>
-      <if test="record.img != null">
-        img = #{record.img,jdbcType=VARCHAR},
+      <if test="record.imgname != null">
+        imgname = #{record.imgname,jdbcType=VARCHAR},
       </if>
       <if test="record.clickNum != null">
         click_num = #{record.clickNum,jdbcType=INTEGER},
@@ -210,7 +230,25 @@
       <if test="record.publisherName != null">
         publisher_name = #{record.publisherName,jdbcType=VARCHAR},
       </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update news
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      imgname = #{record.imgname,jdbcType=VARCHAR},
+      click_num = #{record.clickNum,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      active = #{record.active,jdbcType=INTEGER},
+      publisher_id = #{record.publisherId,jdbcType=INTEGER},
+      publisher_name = #{record.publisherName,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -219,8 +257,7 @@
     update news
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=VARCHAR},
-      img = #{record.img,jdbcType=VARCHAR},
+      imgname = #{record.imgname,jdbcType=VARCHAR},
       click_num = #{record.clickNum,jdbcType=INTEGER},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       active = #{record.active,jdbcType=INTEGER},
@@ -236,11 +273,8 @@
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="img != null">
-        img = #{img,jdbcType=VARCHAR},
+      <if test="imgname != null">
+        imgname = #{imgname,jdbcType=VARCHAR},
       </if>
       <if test="clickNum != null">
         click_num = #{clickNum,jdbcType=INTEGER},
@@ -257,14 +291,28 @@
       <if test="publisherName != null">
         publisher_name = #{publisherName,jdbcType=VARCHAR},
       </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.vanilla.healthmanagement.pojo.News">
+    update news
+    set title = #{title,jdbcType=VARCHAR},
+      imgname = #{imgname,jdbcType=VARCHAR},
+      click_num = #{clickNum,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=INTEGER},
+      publisher_id = #{publisherId,jdbcType=INTEGER},
+      publisher_name = #{publisherName,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.vanilla.healthmanagement.pojo.News">
     update news
     set title = #{title,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
-      img = #{img,jdbcType=VARCHAR},
+      imgname = #{imgname,jdbcType=VARCHAR},
       click_num = #{clickNum,jdbcType=INTEGER},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       active = #{active,jdbcType=INTEGER},

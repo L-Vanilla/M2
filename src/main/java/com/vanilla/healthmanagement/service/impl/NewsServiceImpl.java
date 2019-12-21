@@ -33,6 +33,7 @@ public class NewsServiceImpl implements NewsService {
         }else {
             criteria.andActiveEqualTo(1);
         }
+        NewsExample.setOrderByClause("id desc");
 //        if(News.getActive()!=null)
 //            criteria.andActiveEqualTo(News.getActive());
 

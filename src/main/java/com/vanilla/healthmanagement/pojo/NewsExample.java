@@ -235,143 +235,73 @@ public class NewsExample {
             return (Criteria) this;
         }
 
-        public Criteria andContentIsNull() {
-            addCriterion("content is null");
+        public Criteria andImgnameIsNull() {
+            addCriterion("imgname is null");
             return (Criteria) this;
         }
 
-        public Criteria andContentIsNotNull() {
-            addCriterion("content is not null");
+        public Criteria andImgnameIsNotNull() {
+            addCriterion("imgname is not null");
             return (Criteria) this;
         }
 
-        public Criteria andContentEqualTo(String value) {
-            addCriterion("content =", value, "content");
+        public Criteria andImgnameEqualTo(String value) {
+            addCriterion("imgname =", value, "imgname");
             return (Criteria) this;
         }
 
-        public Criteria andContentNotEqualTo(String value) {
-            addCriterion("content <>", value, "content");
+        public Criteria andImgnameNotEqualTo(String value) {
+            addCriterion("imgname <>", value, "imgname");
             return (Criteria) this;
         }
 
-        public Criteria andContentGreaterThan(String value) {
-            addCriterion("content >", value, "content");
+        public Criteria andImgnameGreaterThan(String value) {
+            addCriterion("imgname >", value, "imgname");
             return (Criteria) this;
         }
 
-        public Criteria andContentGreaterThanOrEqualTo(String value) {
-            addCriterion("content >=", value, "content");
+        public Criteria andImgnameGreaterThanOrEqualTo(String value) {
+            addCriterion("imgname >=", value, "imgname");
             return (Criteria) this;
         }
 
-        public Criteria andContentLessThan(String value) {
-            addCriterion("content <", value, "content");
+        public Criteria andImgnameLessThan(String value) {
+            addCriterion("imgname <", value, "imgname");
             return (Criteria) this;
         }
 
-        public Criteria andContentLessThanOrEqualTo(String value) {
-            addCriterion("content <=", value, "content");
+        public Criteria andImgnameLessThanOrEqualTo(String value) {
+            addCriterion("imgname <=", value, "imgname");
             return (Criteria) this;
         }
 
-        public Criteria andContentLike(String value) {
-            addCriterion("content like", value, "content");
+        public Criteria andImgnameLike(String value) {
+            addCriterion("imgname like", value, "imgname");
             return (Criteria) this;
         }
 
-        public Criteria andContentNotLike(String value) {
-            addCriterion("content not like", value, "content");
+        public Criteria andImgnameNotLike(String value) {
+            addCriterion("imgname not like", value, "imgname");
             return (Criteria) this;
         }
 
-        public Criteria andContentIn(List<String> values) {
-            addCriterion("content in", values, "content");
+        public Criteria andImgnameIn(List<String> values) {
+            addCriterion("imgname in", values, "imgname");
             return (Criteria) this;
         }
 
-        public Criteria andContentNotIn(List<String> values) {
-            addCriterion("content not in", values, "content");
+        public Criteria andImgnameNotIn(List<String> values) {
+            addCriterion("imgname not in", values, "imgname");
             return (Criteria) this;
         }
 
-        public Criteria andContentBetween(String value1, String value2) {
-            addCriterion("content between", value1, value2, "content");
+        public Criteria andImgnameBetween(String value1, String value2) {
+            addCriterion("imgname between", value1, value2, "imgname");
             return (Criteria) this;
         }
 
-        public Criteria andContentNotBetween(String value1, String value2) {
-            addCriterion("content not between", value1, value2, "content");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgIsNull() {
-            addCriterion("img is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgIsNotNull() {
-            addCriterion("img is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgEqualTo(String value) {
-            addCriterion("img =", value, "img");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgNotEqualTo(String value) {
-            addCriterion("img <>", value, "img");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgGreaterThan(String value) {
-            addCriterion("img >", value, "img");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgGreaterThanOrEqualTo(String value) {
-            addCriterion("img >=", value, "img");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgLessThan(String value) {
-            addCriterion("img <", value, "img");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgLessThanOrEqualTo(String value) {
-            addCriterion("img <=", value, "img");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgLike(String value) {
-            addCriterion("img like", value, "img");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgNotLike(String value) {
-            addCriterion("img not like", value, "img");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgIn(List<String> values) {
-            addCriterion("img in", values, "img");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgNotIn(List<String> values) {
-            addCriterion("img not in", values, "img");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgBetween(String value1, String value2) {
-            addCriterion("img between", value1, value2, "img");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgNotBetween(String value1, String value2) {
-            addCriterion("img not between", value1, value2, "img");
+        public Criteria andImgnameNotBetween(String value1, String value2) {
+            addCriterion("imgname not between", value1, value2, "imgname");
             return (Criteria) this;
         }
 
