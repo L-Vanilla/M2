@@ -45,7 +45,16 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
         <!-- 指定数据库表 -->
-        <table tableName="news"></table>
+        <!--//新闻表-->
+        <!--<table tableName="news"></table>-->
+        <!--//养生保健-->
+        <!--<table tableName="health_care"></table> -->
+        <!--//公告管理-->
+        <!--<table tableName="notice"></table>-->
+        <!--//管理-->
+        <!--<table tableName="admin"></table> -->
+        <!--//管理-->
+        <table tableName="worker"></table>
 
         <!-- 有些表的字段需要指定java类型
          <table schema="" tableName="">

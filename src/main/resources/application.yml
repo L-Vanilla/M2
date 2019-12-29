@@ -19,3 +19,9 @@ mybatis:
 logging:
   level:
     com.neuedu.dao: debug
+#    19-12-28上传图片
+#spring.http.multipart.maxFileSize=100M
+#bspring.http.multipart.maxRequestSize=100Mb
+#spring.http.multipart.location=D:/projectImage/
+#spring.mvc.static-path-pattern=/**
+#spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${spring.http.multipart.location}
