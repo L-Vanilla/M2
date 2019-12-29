@@ -67,5 +67,9 @@ public class AdminServiceImpl implements AdminService {
     public int update(Admin admin) {
         return AdminMapper.updateByPrimaryKeySelective(admin);
     }
+    /*19-12-29用户登录*/
+    public Admin getByNameAndPwd(String name, String password) {
+        return AdminMapper.selectByNameAndPwd(name,password);
+    }
 
 }

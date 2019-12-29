@@ -1,13 +1,18 @@
 package com.vanilla.healthmanagement.pojo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import net.minidev.json.annotate.JsonIgnore;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Admin extends MyPage{
+public class Admin extends MyPage implements Serializable {
     private Integer id;
 
     private String name;
 
-    private String password;
+    @JSONField(serialize = false)
+    private transient String password;
 
     private String phone;
 
@@ -39,6 +44,7 @@ public class Admin extends MyPage{
         this.name = name == null ? null : name.trim();
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

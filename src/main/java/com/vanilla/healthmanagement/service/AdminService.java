@@ -16,4 +16,6 @@ public interface AdminService {
     int del(Admin admin);
     //    int del(Integer id);
     int update(Admin admin);
+    /*19-12-29用户登录*/
+    Admin getByNameAndPwd(String name, String password);
 }

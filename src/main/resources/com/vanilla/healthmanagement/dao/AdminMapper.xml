@@ -287,4 +287,12 @@
       create_date = #{createDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--19-12-29用户登录-->
+  <select id="selectByNameAndPwd" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from admin
+    WHERE name = #{name} and password = #{password} and active=1
+  </select>
 </mapper>
