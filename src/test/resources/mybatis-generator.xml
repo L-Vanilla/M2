@@ -55,8 +55,10 @@
         <!--<table tableName="admin"></table> -->
         <!--//社区工作人员管理-->
         <!--<table tableName="worker"></table>-->
-        <!--//老人管理-->
-        <table tableName="older"></table>
+        <!--//老人个人信息管理-->
+        <!--<table tableName="older"></table>-->
+        <!--//家庭成员管理-->
+        <table tableName="member"></table>
 
         <!-- 有些表的字段需要指定java类型
          <table schema="" tableName="">
