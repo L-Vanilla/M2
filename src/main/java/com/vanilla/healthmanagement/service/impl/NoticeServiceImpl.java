@@ -13,9 +13,11 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
+
 /*公告
  * 12-22Vanilla
  * */
+
 @Service
 @Primary
 public class NoticeServiceImpl implements NoticeService {
@@ -34,9 +36,6 @@ public class NoticeServiceImpl implements NoticeService {
             criteria.andActiveEqualTo(1);
         }
         NoticeExample.setOrderByClause("id desc");
-//        if(Notice.getActive()!=null)
-//            criteria.andActiveEqualTo(Notice.getActive());
-
         return NoticeMapper.selectByExample(NoticeExample);
     }
 

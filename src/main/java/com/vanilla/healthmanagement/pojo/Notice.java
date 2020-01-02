@@ -2,10 +2,12 @@ package com.vanilla.healthmanagement.pojo;
 
 import java.util.Date;
 
-public class Notice  extends MyPage{
+public class Notice extends MyPage{
     private Integer id;
 
     private String title;
+
+    private String content;
 
     private Integer publisherId;
 
@@ -14,8 +16,6 @@ public class Notice  extends MyPage{
     private Date createDate;
 
     private Integer active;
-
-    private String content;
 
     public Integer getId() {
         return id;
@@ -31,6 +31,14 @@ public class Notice  extends MyPage{
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
     public Integer getPublisherId() {
@@ -63,13 +71,5 @@ public class Notice  extends MyPage{
 
     public void setActive(Integer active) {
         this.active = active;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
     }
 }

@@ -50,11 +50,11 @@
         <!--//养生保健-->
         <!--<table tableName="health_care"></table> -->
         <!--//公告管理-->
-        <!--<table tableName="notice"></table>-->
+        <table tableName="notice"></table>
         <!--//管理-->
         <!--<table tableName="admin"></table> -->
         <!--//管理-->
-        <table tableName="worker"></table>
+        <!--<table tableName="worker"></table>-->
 
         <!-- 有些表的字段需要指定java类型
          <table schema="" tableName="">

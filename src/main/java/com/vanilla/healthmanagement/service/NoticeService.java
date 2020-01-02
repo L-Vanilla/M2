@@ -8,6 +8,7 @@ import java.util.List;
 /*公告
  * 12-22Vanilla
  * */
+
 public interface NoticeService {
     List<Notice> getNotices(Notice notice);
     List<Notice> getAll(Notice notice);

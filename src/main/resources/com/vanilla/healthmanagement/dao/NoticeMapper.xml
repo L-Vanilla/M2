@@ -4,13 +4,11 @@
   <resultMap id="BaseResultMap" type="com.vanilla.healthmanagement.pojo.Notice">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="publisher_id" jdbcType="INTEGER" property="publisherId" />
     <result column="publisher_name" jdbcType="VARCHAR" property="publisherName" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="active" jdbcType="INTEGER" property="active" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.vanilla.healthmanagement.pojo.Notice">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,27 +69,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, publisher_id, publisher_name, create_date, active
+    id, title, content, publisher_id, publisher_name, create_date, active
   </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.vanilla.healthmanagement.pojo.NoticeExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from notice
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.vanilla.healthmanagement.pojo.NoticeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -106,11 +85,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from notice
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -125,12 +102,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.vanilla.healthmanagement.pojo.Notice">
-    insert into notice (id, title, publisher_id, 
-      publisher_name, create_date, active, 
-      content)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{publisherId,jdbcType=INTEGER}, 
-      #{publisherName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}, 
-      #{content,jdbcType=LONGVARCHAR})
+    insert into notice (id, title, content, 
+      publisher_id, publisher_name, create_date, 
+      active)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{publisherId,jdbcType=INTEGER}, #{publisherName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{active,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.vanilla.healthmanagement.pojo.Notice">
     insert into notice
@@ -140,6 +117,9 @@
       </if>
       <if test="title != null">
         title,
+      </if>
+      <if test="content != null">
+        content,
       </if>
       <if test="publisherId != null">
         publisher_id,
@@ -153,9 +133,6 @@
       <if test="active != null">
         active,
       </if>
-      <if test="content != null">
-        content,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -163,6 +140,9 @@
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
       </if>
       <if test="publisherId != null">
         #{publisherId,jdbcType=INTEGER},
@@ -175,9 +155,6 @@
       </if>
       <if test="active != null">
         #{active,jdbcType=INTEGER},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -196,6 +173,9 @@
       <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
       </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
       <if test="record.publisherId != null">
         publisher_id = #{record.publisherId,jdbcType=INTEGER},
       </if>
@@ -208,23 +188,7 @@
       <if test="record.active != null">
         active = #{record.active,jdbcType=INTEGER},
       </if>
-      <if test="record.content != null">
-        content = #{record.content,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update notice
-    set id = #{record.id,jdbcType=INTEGER},
-      title = #{record.title,jdbcType=VARCHAR},
-      publisher_id = #{record.publisherId,jdbcType=INTEGER},
-      publisher_name = #{record.publisherName,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      active = #{record.active,jdbcType=INTEGER},
-      content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -233,6 +197,7 @@
     update notice
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
       publisher_id = #{record.publisherId,jdbcType=INTEGER},
       publisher_name = #{record.publisherName,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
@@ -247,6 +212,9 @@
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
       <if test="publisherId != null">
         publisher_id = #{publisherId,jdbcType=INTEGER},
       </if>
@@ -259,25 +227,13 @@
       <if test="active != null">
         active = #{active,jdbcType=INTEGER},
       </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.vanilla.healthmanagement.pojo.Notice">
-    update notice
-    set title = #{title,jdbcType=VARCHAR},
-      publisher_id = #{publisherId,jdbcType=INTEGER},
-      publisher_name = #{publisherName,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      active = #{active,jdbcType=INTEGER},
-      content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.vanilla.healthmanagement.pojo.Notice">
     update notice
     set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
       publisher_id = #{publisherId,jdbcType=INTEGER},
       publisher_name = #{publisherName,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
