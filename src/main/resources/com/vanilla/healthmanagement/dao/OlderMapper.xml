@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vanilla.healthmanagement.dao.OlderMapper">
+  <resultMap id="BaseResultMap" type="com.vanilla.healthmanagement.pojo.Older">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="older_name" jdbcType="VARCHAR" property="olderName" />
+    <result column="older_password" jdbcType="VARCHAR" property="olderPassword" />
+    <result column="older_sex" jdbcType="INTEGER" property="olderSex" />
+    <result column="older_card" jdbcType="VARCHAR" property="olderCard" />
+    <result column="older_age" jdbcType="INTEGER" property="olderAge" />
+    <result column="older_photourl" jdbcType="VARCHAR" property="olderPhotourl" />
+    <result column="older_address" jdbcType="VARCHAR" property="olderAddress" />
+    <result column="older_state" jdbcType="INTEGER" property="olderState" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="older_phone" jdbcType="VARCHAR" property="olderPhone" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, older_name, older_password, older_sex, older_card, older_age, older_photourl, 
+    older_address, older_state, remarks, active, create_date, older_phone
+  </sql>
+  <select id="selectByExample" parameterType="com.vanilla.healthmanagement.pojo.OlderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from older
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from older
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from older
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vanilla.healthmanagement.pojo.OlderExample">
+    delete from older
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vanilla.healthmanagement.pojo.Older">
+    insert into older (id, older_name, older_password, 
+      older_sex, older_card, older_age, 
+      older_photourl, older_address, older_state, 
+      remarks, active, create_date, 
+      older_phone)
+    values (#{id,jdbcType=INTEGER}, #{olderName,jdbcType=VARCHAR}, #{olderPassword,jdbcType=VARCHAR}, 
+      #{olderSex,jdbcType=INTEGER}, #{olderCard,jdbcType=VARCHAR}, #{olderAge,jdbcType=INTEGER}, 
+      #{olderPhotourl,jdbcType=VARCHAR}, #{olderAddress,jdbcType=VARCHAR}, #{olderState,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR}, #{active,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{olderPhone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vanilla.healthmanagement.pojo.Older">
+    insert into older
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="olderName != null">
+        older_name,
+      </if>
+      <if test="olderPassword != null">
+        older_password,
+      </if>
+      <if test="olderSex != null">
+        older_sex,
+      </if>
+      <if test="olderCard != null">
+        older_card,
+      </if>
+      <if test="olderAge != null">
+        older_age,
+      </if>
+      <if test="olderPhotourl != null">
+        older_photourl,
+      </if>
+      <if test="olderAddress != null">
+        older_address,
+      </if>
+      <if test="olderState != null">
+        older_state,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="olderPhone != null">
+        older_phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="olderName != null">
+        #{olderName,jdbcType=VARCHAR},
+      </if>
+      <if test="olderPassword != null">
+        #{olderPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="olderSex != null">
+        #{olderSex,jdbcType=INTEGER},
+      </if>
+      <if test="olderCard != null">
+        #{olderCard,jdbcType=VARCHAR},
+      </if>
+      <if test="olderAge != null">
+        #{olderAge,jdbcType=INTEGER},
+      </if>
+      <if test="olderPhotourl != null">
+        #{olderPhotourl,jdbcType=VARCHAR},
+      </if>
+      <if test="olderAddress != null">
+        #{olderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="olderState != null">
+        #{olderState,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="olderPhone != null">
+        #{olderPhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.vanilla.healthmanagement.pojo.OlderExample" resultType="java.lang.Long">
+    select count(*) from older
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update older
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.olderName != null">
+        older_name = #{record.olderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.olderPassword != null">
+        older_password = #{record.olderPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.olderSex != null">
+        older_sex = #{record.olderSex,jdbcType=INTEGER},
+      </if>
+      <if test="record.olderCard != null">
+        older_card = #{record.olderCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.olderAge != null">
+        older_age = #{record.olderAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.olderPhotourl != null">
+        older_photourl = #{record.olderPhotourl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.olderAddress != null">
+        older_address = #{record.olderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.olderState != null">
+        older_state = #{record.olderState,jdbcType=INTEGER},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.active != null">
+        active = #{record.active,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.olderPhone != null">
+        older_phone = #{record.olderPhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update older
+    set id = #{record.id,jdbcType=INTEGER},
+      older_name = #{record.olderName,jdbcType=VARCHAR},
+      older_password = #{record.olderPassword,jdbcType=VARCHAR},
+      older_sex = #{record.olderSex,jdbcType=INTEGER},
+      older_card = #{record.olderCard,jdbcType=VARCHAR},
+      older_age = #{record.olderAge,jdbcType=INTEGER},
+      older_photourl = #{record.olderPhotourl,jdbcType=VARCHAR},
+      older_address = #{record.olderAddress,jdbcType=VARCHAR},
+      older_state = #{record.olderState,jdbcType=INTEGER},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      active = #{record.active,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      older_phone = #{record.olderPhone,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vanilla.healthmanagement.pojo.Older">
+    update older
+    <set>
+      <if test="olderName != null">
+        older_name = #{olderName,jdbcType=VARCHAR},
+      </if>
+      <if test="olderPassword != null">
+        older_password = #{olderPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="olderSex != null">
+        older_sex = #{olderSex,jdbcType=INTEGER},
+      </if>
+      <if test="olderCard != null">
+        older_card = #{olderCard,jdbcType=VARCHAR},
+      </if>
+      <if test="olderAge != null">
+        older_age = #{olderAge,jdbcType=INTEGER},
+      </if>
+      <if test="olderPhotourl != null">
+        older_photourl = #{olderPhotourl,jdbcType=VARCHAR},
+      </if>
+      <if test="olderAddress != null">
+        older_address = #{olderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="olderState != null">
+        older_state = #{olderState,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="olderPhone != null">
+        older_phone = #{olderPhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vanilla.healthmanagement.pojo.Older">
+    update older
+    set older_name = #{olderName,jdbcType=VARCHAR},
+      older_password = #{olderPassword,jdbcType=VARCHAR},
+      older_sex = #{olderSex,jdbcType=INTEGER},
+      older_card = #{olderCard,jdbcType=VARCHAR},
+      older_age = #{olderAge,jdbcType=INTEGER},
+      older_photourl = #{olderPhotourl,jdbcType=VARCHAR},
+      older_address = #{olderAddress,jdbcType=VARCHAR},
+      older_state = #{olderState,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      active = #{active,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      older_phone = #{olderPhone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--20-1-2用户登录-->
+  <select id="selectByNameAndPwd" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from older
+    WHERE older_name = #{olderName} and older_password = #{olderPassword} and active=1
+  </select>
+</mapper>
