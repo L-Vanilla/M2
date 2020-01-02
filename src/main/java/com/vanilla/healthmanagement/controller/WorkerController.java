@@ -55,7 +55,7 @@ public class WorkerController {
         }
         String fileName = file.getOriginalFilename();  // 文件名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
-        String filePath = "E:\\git_position\\health\\M\\static\\imgurl\\"; // 上传后的路径
+        String filePath = "E:\\git_position\\health\\M\\static\\worker_photourl\\"; // 上传后的路径
         fileName = UUID.randomUUID() + suffixName; // 新文件名
         File dest = new File(filePath + fileName);
         if (!dest.getParentFile().exists()) {

@@ -5,7 +5,7 @@ import com.vanilla.healthmanagement.pojo.Admin;
 
 import java.util.List;
 
-/*公告
+/*管理员
  * 12-22Vanilla
  * */
 public interface AdminService {
