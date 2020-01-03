@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vanilla.healthmanagement.dao.VisitsMapper">
+  <resultMap id="BaseResultMap" type="com.vanilla.healthmanagement.pojo.Visits">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="older_id" jdbcType="INTEGER" property="olderId" />
+    <result column="older_name" jdbcType="VARCHAR" property="olderName" />
+    <result column="worker_id" jdbcType="INTEGER" property="workerId" />
+    <result column="worker_name" jdbcType="VARCHAR" property="workerName" />
+    <result column="visits_datetime" jdbcType="TIMESTAMP" property="visitsDatetime" />
+    <result column="body_state" jdbcType="VARCHAR" property="bodyState" />
+    <result column="visits_state" jdbcType="INTEGER" property="visitsState" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="fileurl" jdbcType="VARCHAR" property="fileurl" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, older_id, older_name, worker_id, worker_name, visits_datetime, body_state, visits_state, 
+    remarks, fileurl, active, create_date
+  </sql>
+  <select id="selectByExample" parameterType="com.vanilla.healthmanagement.pojo.VisitsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from visits
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from visits
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from visits
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vanilla.healthmanagement.pojo.VisitsExample">
+    delete from visits
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vanilla.healthmanagement.pojo.Visits">
+    insert into visits (id, older_id, older_name, 
+      worker_id, worker_name, visits_datetime, 
+      body_state, visits_state, remarks, 
+      fileurl, active, create_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{olderId,jdbcType=INTEGER}, #{olderName,jdbcType=VARCHAR}, 
+      #{workerId,jdbcType=INTEGER}, #{workerName,jdbcType=VARCHAR}, #{visitsDatetime,jdbcType=TIMESTAMP}, 
+      #{bodyState,jdbcType=VARCHAR}, #{visitsState,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{fileurl,jdbcType=VARCHAR}, #{active,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vanilla.healthmanagement.pojo.Visits">
+    insert into visits
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="olderId != null">
+        older_id,
+      </if>
+      <if test="olderName != null">
+        older_name,
+      </if>
+      <if test="workerId != null">
+        worker_id,
+      </if>
+      <if test="workerName != null">
+        worker_name,
+      </if>
+      <if test="visitsDatetime != null">
+        visits_datetime,
+      </if>
+      <if test="bodyState != null">
+        body_state,
+      </if>
+      <if test="visitsState != null">
+        visits_state,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="fileurl != null">
+        fileurl,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="olderId != null">
+        #{olderId,jdbcType=INTEGER},
+      </if>
+      <if test="olderName != null">
+        #{olderName,jdbcType=VARCHAR},
+      </if>
+      <if test="workerId != null">
+        #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="workerName != null">
+        #{workerName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitsDatetime != null">
+        #{visitsDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bodyState != null">
+        #{bodyState,jdbcType=VARCHAR},
+      </if>
+      <if test="visitsState != null">
+        #{visitsState,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="fileurl != null">
+        #{fileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.vanilla.healthmanagement.pojo.VisitsExample" resultType="java.lang.Long">
+    select count(*) from visits
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update visits
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.olderId != null">
+        older_id = #{record.olderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.olderName != null">
+        older_name = #{record.olderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerId != null">
+        worker_id = #{record.workerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.workerName != null">
+        worker_name = #{record.workerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitsDatetime != null">
+        visits_datetime = #{record.visitsDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bodyState != null">
+        body_state = #{record.bodyState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitsState != null">
+        visits_state = #{record.visitsState,jdbcType=INTEGER},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileurl != null">
+        fileurl = #{record.fileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.active != null">
+        active = #{record.active,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update visits
+    set id = #{record.id,jdbcType=INTEGER},
+      older_id = #{record.olderId,jdbcType=INTEGER},
+      older_name = #{record.olderName,jdbcType=VARCHAR},
+      worker_id = #{record.workerId,jdbcType=INTEGER},
+      worker_name = #{record.workerName,jdbcType=VARCHAR},
+      visits_datetime = #{record.visitsDatetime,jdbcType=TIMESTAMP},
+      body_state = #{record.bodyState,jdbcType=VARCHAR},
+      visits_state = #{record.visitsState,jdbcType=INTEGER},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      fileurl = #{record.fileurl,jdbcType=VARCHAR},
+      active = #{record.active,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vanilla.healthmanagement.pojo.Visits">
+    update visits
+    <set>
+      <if test="olderId != null">
+        older_id = #{olderId,jdbcType=INTEGER},
+      </if>
+      <if test="olderName != null">
+        older_name = #{olderName,jdbcType=VARCHAR},
+      </if>
+      <if test="workerId != null">
+        worker_id = #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="workerName != null">
+        worker_name = #{workerName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitsDatetime != null">
+        visits_datetime = #{visitsDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bodyState != null">
+        body_state = #{bodyState,jdbcType=VARCHAR},
+      </if>
+      <if test="visitsState != null">
+        visits_state = #{visitsState,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="fileurl != null">
+        fileurl = #{fileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vanilla.healthmanagement.pojo.Visits">
+    update visits
+    set older_id = #{olderId,jdbcType=INTEGER},
+      older_name = #{olderName,jdbcType=VARCHAR},
+      worker_id = #{workerId,jdbcType=INTEGER},
+      worker_name = #{workerName,jdbcType=VARCHAR},
+      visits_datetime = #{visitsDatetime,jdbcType=TIMESTAMP},
+      body_state = #{bodyState,jdbcType=VARCHAR},
+      visits_state = #{visitsState,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      fileurl = #{fileurl,jdbcType=VARCHAR},
+      active = #{active,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
