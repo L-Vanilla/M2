@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vanilla.healthmanagement.dao.ExamMapper">
+  <resultMap id="BaseResultMap" type="com.vanilla.healthmanagement.pojo.Exam">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="older_id" jdbcType="INTEGER" property="olderId" />
+    <result column="older_name" jdbcType="VARCHAR" property="olderName" />
+    <result column="exam_height" jdbcType="INTEGER" property="examHeight" />
+    <result column="exam_weight" jdbcType="INTEGER" property="examWeight" />
+    <result column="exam_rsight" jdbcType="DECIMAL" property="examRsight" />
+    <result column="exam_lsight" jdbcType="DECIMAL" property="examLsight" />
+    <result column="exam_highbp" jdbcType="INTEGER" property="examHighbp" />
+    <result column="exam_lowbp" jdbcType="INTEGER" property="examLowbp" />
+    <result column="exam_glu" jdbcType="DECIMAL" property="examGlu" />
+    <result column="exam_hr" jdbcType="INTEGER" property="examHr" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="exam_date" jdbcType="DATE" property="examDate" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, older_id, older_name, exam_height, exam_weight, exam_rsight, exam_lsight, exam_highbp, 
+    exam_lowbp, exam_glu, exam_hr, remarks, exam_date, create_date, active
+  </sql>
+  <select id="selectByExample" parameterType="com.vanilla.healthmanagement.pojo.ExamExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from exam
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vanilla.healthmanagement.pojo.ExamExample">
+    delete from exam
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vanilla.healthmanagement.pojo.Exam">
+    insert into exam (id, older_id, older_name, 
+      exam_height, exam_weight, exam_rsight, 
+      exam_lsight, exam_highbp, exam_lowbp, 
+      exam_glu, exam_hr, remarks, 
+      exam_date, create_date, active
+      )
+    values (#{id,jdbcType=INTEGER}, #{olderId,jdbcType=INTEGER}, #{olderName,jdbcType=VARCHAR}, 
+      #{examHeight,jdbcType=INTEGER}, #{examWeight,jdbcType=INTEGER}, #{examRsight,jdbcType=DECIMAL}, 
+      #{examLsight,jdbcType=DECIMAL}, #{examHighbp,jdbcType=INTEGER}, #{examLowbp,jdbcType=INTEGER}, 
+      #{examGlu,jdbcType=DECIMAL}, #{examHr,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{examDate,jdbcType=DATE}, #{createDate,jdbcType=TIMESTAMP}, #{active,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vanilla.healthmanagement.pojo.Exam">
+    insert into exam
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="olderId != null">
+        older_id,
+      </if>
+      <if test="olderName != null">
+        older_name,
+      </if>
+      <if test="examHeight != null">
+        exam_height,
+      </if>
+      <if test="examWeight != null">
+        exam_weight,
+      </if>
+      <if test="examRsight != null">
+        exam_rsight,
+      </if>
+      <if test="examLsight != null">
+        exam_lsight,
+      </if>
+      <if test="examHighbp != null">
+        exam_highbp,
+      </if>
+      <if test="examLowbp != null">
+        exam_lowbp,
+      </if>
+      <if test="examGlu != null">
+        exam_glu,
+      </if>
+      <if test="examHr != null">
+        exam_hr,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="examDate != null">
+        exam_date,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="olderId != null">
+        #{olderId,jdbcType=INTEGER},
+      </if>
+      <if test="olderName != null">
+        #{olderName,jdbcType=VARCHAR},
+      </if>
+      <if test="examHeight != null">
+        #{examHeight,jdbcType=INTEGER},
+      </if>
+      <if test="examWeight != null">
+        #{examWeight,jdbcType=INTEGER},
+      </if>
+      <if test="examRsight != null">
+        #{examRsight,jdbcType=DECIMAL},
+      </if>
+      <if test="examLsight != null">
+        #{examLsight,jdbcType=DECIMAL},
+      </if>
+      <if test="examHighbp != null">
+        #{examHighbp,jdbcType=INTEGER},
+      </if>
+      <if test="examLowbp != null">
+        #{examLowbp,jdbcType=INTEGER},
+      </if>
+      <if test="examGlu != null">
+        #{examGlu,jdbcType=DECIMAL},
+      </if>
+      <if test="examHr != null">
+        #{examHr,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="examDate != null">
+        #{examDate,jdbcType=DATE},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.vanilla.healthmanagement.pojo.ExamExample" resultType="java.lang.Long">
+    select count(*) from exam
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update exam
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.olderId != null">
+        older_id = #{record.olderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.olderName != null">
+        older_name = #{record.olderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examHeight != null">
+        exam_height = #{record.examHeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.examWeight != null">
+        exam_weight = #{record.examWeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.examRsight != null">
+        exam_rsight = #{record.examRsight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.examLsight != null">
+        exam_lsight = #{record.examLsight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.examHighbp != null">
+        exam_highbp = #{record.examHighbp,jdbcType=INTEGER},
+      </if>
+      <if test="record.examLowbp != null">
+        exam_lowbp = #{record.examLowbp,jdbcType=INTEGER},
+      </if>
+      <if test="record.examGlu != null">
+        exam_glu = #{record.examGlu,jdbcType=DECIMAL},
+      </if>
+      <if test="record.examHr != null">
+        exam_hr = #{record.examHr,jdbcType=INTEGER},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examDate != null">
+        exam_date = #{record.examDate,jdbcType=DATE},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.active != null">
+        active = #{record.active,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update exam
+    set id = #{record.id,jdbcType=INTEGER},
+      older_id = #{record.olderId,jdbcType=INTEGER},
+      older_name = #{record.olderName,jdbcType=VARCHAR},
+      exam_height = #{record.examHeight,jdbcType=INTEGER},
+      exam_weight = #{record.examWeight,jdbcType=INTEGER},
+      exam_rsight = #{record.examRsight,jdbcType=DECIMAL},
+      exam_lsight = #{record.examLsight,jdbcType=DECIMAL},
+      exam_highbp = #{record.examHighbp,jdbcType=INTEGER},
+      exam_lowbp = #{record.examLowbp,jdbcType=INTEGER},
+      exam_glu = #{record.examGlu,jdbcType=DECIMAL},
+      exam_hr = #{record.examHr,jdbcType=INTEGER},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      exam_date = #{record.examDate,jdbcType=DATE},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      active = #{record.active,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vanilla.healthmanagement.pojo.Exam">
+    update exam
+    <set>
+      <if test="olderId != null">
+        older_id = #{olderId,jdbcType=INTEGER},
+      </if>
+      <if test="olderName != null">
+        older_name = #{olderName,jdbcType=VARCHAR},
+      </if>
+      <if test="examHeight != null">
+        exam_height = #{examHeight,jdbcType=INTEGER},
+      </if>
+      <if test="examWeight != null">
+        exam_weight = #{examWeight,jdbcType=INTEGER},
+      </if>
+      <if test="examRsight != null">
+        exam_rsight = #{examRsight,jdbcType=DECIMAL},
+      </if>
+      <if test="examLsight != null">
+        exam_lsight = #{examLsight,jdbcType=DECIMAL},
+      </if>
+      <if test="examHighbp != null">
+        exam_highbp = #{examHighbp,jdbcType=INTEGER},
+      </if>
+      <if test="examLowbp != null">
+        exam_lowbp = #{examLowbp,jdbcType=INTEGER},
+      </if>
+      <if test="examGlu != null">
+        exam_glu = #{examGlu,jdbcType=DECIMAL},
+      </if>
+      <if test="examHr != null">
+        exam_hr = #{examHr,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="examDate != null">
+        exam_date = #{examDate,jdbcType=DATE},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vanilla.healthmanagement.pojo.Exam">
+    update exam
+    set older_id = #{olderId,jdbcType=INTEGER},
+      older_name = #{olderName,jdbcType=VARCHAR},
+      exam_height = #{examHeight,jdbcType=INTEGER},
+      exam_weight = #{examWeight,jdbcType=INTEGER},
+      exam_rsight = #{examRsight,jdbcType=DECIMAL},
+      exam_lsight = #{examLsight,jdbcType=DECIMAL},
+      exam_highbp = #{examHighbp,jdbcType=INTEGER},
+      exam_lowbp = #{examLowbp,jdbcType=INTEGER},
+      exam_glu = #{examGlu,jdbcType=DECIMAL},
+      exam_hr = #{examHr,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      exam_date = #{examDate,jdbcType=DATE},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

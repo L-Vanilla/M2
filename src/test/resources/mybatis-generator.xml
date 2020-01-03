@@ -62,7 +62,9 @@
         <!--//诊断信息管理-->
         <!--<table tableName="diagnosis"></table>  -->
         <!--//急救信息管理-->
-        <table tableName="aid"></table>
+        <!--<table tableName="aid"></table>-->
+        <!--//急救信息管理-->
+        <table tableName="exam"></table>
 
         <!-- 有些表的字段需要指定java类型
          <table schema="" tableName="">
