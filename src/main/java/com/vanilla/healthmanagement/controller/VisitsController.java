@@ -51,6 +51,7 @@ public class VisitsController {
     public Visits getOne(Integer id){
         return VisitsService.getVisitsById(id);
     }
+    /*文件的上传*/
     @PostMapping(value = "/fileUpload")
     public String fileUpload(@RequestParam(value = "file") MultipartFile file, HttpServletRequest request) {
         if (file.isEmpty()) {
