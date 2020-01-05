@@ -62,6 +62,7 @@ public class OlderController {
 //        session.setAttribute("older",older);
 //        System.out.println("session"+older.getOlderName());
 //        OldernamePasswordToken token = new OldernamePasswordToken(olderName, olderPwd);
+        System.out.printf("oldername");
         Cookie cookie = new Cookie("olderName", older.getOlderName());
         cookie.setMaxAge(24 * 60 * 60); //存活期为1天
         cookie.setPath("/");
@@ -83,7 +84,7 @@ public class OlderController {
                 cookie.setMaxAge(0);//销毁cookie
                 response.addCookie(cookie);
             }
-            return 0;
+            return 2;
         }
         return 1;
     }
