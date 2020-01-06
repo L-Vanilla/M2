@@ -1,7 +1,10 @@
 package com.vanilla.healthmanagement.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.vanilla.healthmanagement.pojo.Older;
+import com.vanilla.healthmanagement.pojo.*;
+import com.vanilla.healthmanagement.service.DiagnosisService;
+import com.vanilla.healthmanagement.service.ExamService;
+import com.vanilla.healthmanagement.service.VisitsService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /*老人
@@ -24,6 +29,16 @@ import java.util.UUID;
 public class OlderController {
     @Resource
     com.vanilla.healthmanagement.service.OlderService OlderService;
+    @Resource
+    com.vanilla.healthmanagement.service.MemberService MemberService;
+    @Resource
+    com.vanilla.healthmanagement.service.ExamService ExamService;
+    @Resource
+    com.vanilla.healthmanagement.service.DiagnosisService DiagnosisService;
+    @Resource
+    com.vanilla.healthmanagement.service.VisitsService VisitsService;
+    @Resource
+    com.vanilla.healthmanagement.service.AidService AidService;
     @GetMapping("/list")
     public PageInfo<Older> getOlder(Older older){
         List<Older> olders =OlderService.getOlders(older);
@@ -111,4 +126,32 @@ public class OlderController {
         return filename;
     }
 
+    /*老人个人中心数据*/
+    @GetMapping("/getAllInformation")
+    public Map<String,List<?>> getAllInformation(Older older){
+        Map<String,List<?>> map = new HashMap<>();
+        System.out.println("老人id"+older.getId());
+        /*家庭成员列表*/
+        Member member=new Member();
+        member.setOlderId(older.getId());
+        /*体检列表*/
+        Exam exam=new Exam();
+        exam.setOlderId(older.getId());
+        /*诊断列表*/
+        Diagnosis diagnosis=new Diagnosis();
+        diagnosis.setOlderId(older.getId());
+        /*随访列表*/
+        Visits visits=new Visits();
+        visits.setOlderId(older.getId());
+        /*急救列表*/
+        Aid aid=new Aid();
+        aid.setOlderId(older.getId());
+
+        map.put("members", MemberService.getAll(member));
+        map.put("exams", ExamService.getAll(exam));
+        map.put("diagnosiss", DiagnosisService.getAll(diagnosis));
+        map.put("visitss", VisitsService.getAll(visits));
+        map.put("aids", AidService.getAll(aid));
+        return map;
+    }
 }

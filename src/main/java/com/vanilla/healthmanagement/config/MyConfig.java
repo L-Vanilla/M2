@@ -44,7 +44,7 @@ public class MyConfig {
         return new Converter<String, Date>() {
             @Override
             public Date convert(String s) {
-                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
                 Date date=null;
                 try {
                     date=sdf.parse(s);

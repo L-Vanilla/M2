@@ -44,9 +44,16 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
     @Override
     public List<Diagnosis> getAll(Diagnosis diagnosis) {
-        DiagnosisExample diagnosisExample = new DiagnosisExample();
-        diagnosisExample.createCriteria().andActiveEqualTo(1);//只查状态为1的
-        return DiagnosisMapper.selectByExample(diagnosisExample);
+        DiagnosisExample DiagnosisExample = new DiagnosisExample();
+        DiagnosisExample.Criteria criteria = DiagnosisExample.createCriteria();
+        /*根据老人姓名进行模糊查询*/
+        if (diagnosis.getOlderId()!=null) {
+            criteria.andOlderIdEqualTo(diagnosis.getOlderId()).andActiveEqualTo(1);
+        }
+        else {
+            criteria.andActiveEqualTo(1);
+        }
+        return DiagnosisMapper.selectByExample(DiagnosisExample);
     }
 
     @Override

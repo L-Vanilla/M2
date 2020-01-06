@@ -41,9 +41,16 @@ public class AidServiceImpl implements AidService {
 
     @Override
     public List<Aid> getAll(Aid aid) {
-        AidExample aidExample = new AidExample();
-        aidExample.createCriteria().andActiveEqualTo(1);//只查状态为1的
-        return AidMapper.selectByExample(aidExample);
+        AidExample AidExample = new AidExample();
+        AidExample.Criteria criteria = AidExample.createCriteria();
+        /*根据老人姓名进行模糊查询*/
+        if (aid.getOlderId()!=null) {
+            criteria.andOlderIdEqualTo(aid.getOlderId()).andActiveEqualTo(1);
+        }
+        else {
+            criteria.andActiveEqualTo(1);
+        }
+        return AidMapper.selectByExample(AidExample);
     }
 
     @Override

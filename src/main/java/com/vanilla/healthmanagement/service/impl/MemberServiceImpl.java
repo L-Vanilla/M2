@@ -43,9 +43,15 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Member> getAll(Member member) {
-        MemberExample memberExample = new MemberExample();
-        memberExample.createCriteria().andActiveEqualTo(1);//只查状态为1的
-        return MemberMapper.selectByExample(memberExample);
+        MemberExample MemberExample = new MemberExample();
+        MemberExample.Criteria criteria = MemberExample.createCriteria();
+        if (member.getOlderId()!=null) {
+            criteria.andOlderIdEqualTo(member.getOlderId()).andActiveEqualTo(1);
+        }
+        else {
+            criteria.andActiveEqualTo(1);
+        }
+        return MemberMapper.selectByExample(MemberExample);
     }
 
     @Override

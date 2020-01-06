@@ -41,9 +41,16 @@ public class VisitsServiceImpl implements VisitsService {
 
     @Override
     public List<Visits> getAll(Visits visits) {
-        VisitsExample visitsExample = new VisitsExample();
-        visitsExample.createCriteria().andActiveEqualTo(1);//只查状态为1的
-        return VisitsMapper.selectByExample(visitsExample);
+        VisitsExample VisitsExample = new VisitsExample();
+        VisitsExample.Criteria criteria = VisitsExample.createCriteria();
+        /*根据老人姓名进行模糊查询*/
+        if (visits.getOlderId()!=null) {
+            criteria.andOlderIdEqualTo(visits.getOlderId()).andActiveEqualTo(1);
+        }
+        else {
+            criteria.andActiveEqualTo(1);
+        }
+        return VisitsMapper.selectByExample(VisitsExample);
     }
 
     @Override
