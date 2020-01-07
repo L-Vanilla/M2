@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /*老人管理
  * 20-1-2Vanilla
@@ -69,10 +70,23 @@ public class OlderServiceImpl implements OlderService {
         return OlderMapper.updateByPrimaryKeySelective(older);
     }
 
-/*20-1-3用户登录*/
-
+    /*20-1-3用户登录*/
     public Older getByNameAndPwd(String olderName, String olderPassword) {
         return OlderMapper.selectByNameAndPwd(olderName,olderPassword);
     }
-
+    /*统计老人性别*/
+    @Override
+    public List<Map<String,String>> Sum_OlderSex() {
+        return OlderMapper.Sum_OlderSex();
+    }
+    /*统计老人健康状态*/
+    @Override
+    public List<Map<String,String>> Sum_OlderHealthState() {
+        return OlderMapper.Sum_OlderHealthState();
+    }
+    /*统计老人年龄分布*/
+    @Override
+    public List<Map<String,String>> Sum_OlderAge() {
+        return OlderMapper.Sum_OlderAge();
+    }
 }

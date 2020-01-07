@@ -1,10 +1,8 @@
 package com.vanilla.healthmanagement.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import com.vanilla.healthmanagement.pojo.*;
-import com.vanilla.healthmanagement.service.DiagnosisService;
-import com.vanilla.healthmanagement.service.ExamService;
-import com.vanilla.healthmanagement.service.VisitsService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,6 +48,7 @@ public class OlderController {
 //        Older.setActive(1);
         return OlderService.getAll(older);
     }
+
     @PostMapping("/add")
     public int add(Older older){
         return OlderService.add(older);
@@ -68,8 +67,7 @@ public class OlderController {
         return OlderService.getOlderById(id);
     }
 
-/*19-12-29管理员登录*/
-
+   /*19-12-29管理员登录*/
     @CrossOrigin(allowCredentials = "true")
     @PostMapping("/login")
     public Older login(@Param("olderName") String olderName, @Param("olderPassword") String olderPassword, HttpServletResponse response) {
@@ -86,9 +84,8 @@ public class OlderController {
         return older;
     }
     //    @MyLog(value = "退出")  //这里添加了AOP的自定义注解
-/*20-1-2管理员退出
+    /*20-1-2管理员退出
     * */
-
     @GetMapping("/logout")
     public Integer logout(HttpServletRequest request,
                           HttpServletResponse response) {
@@ -153,5 +150,19 @@ public class OlderController {
         map.put("visitss", VisitsService.getAll(visits));
         map.put("aids", AidService.getAll(aid));
         return map;
+    }
+
+    //ldf统计查询
+    @GetMapping("/SumOlder")
+    public String SumOlder(){
+        Map<String,List<?>> map = new HashMap<>();
+        /*统计老人的男女比例*/
+        map.put("sexs",OlderService.Sum_OlderSex());
+        /*统计老人的年龄分布*/
+        map.put("ages",OlderService.Sum_OlderAge());
+        /*统计老人的健康状态*/
+        map.put("healthStates",OlderService.Sum_OlderHealthState());
+
+        return JSON.toJSONString(map);
     }
 }
