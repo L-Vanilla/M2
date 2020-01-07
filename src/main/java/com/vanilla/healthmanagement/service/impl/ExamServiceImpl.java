@@ -1,6 +1,7 @@
 package com.vanilla.healthmanagement.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.thoughtworks.xstream.mapper.Mapper;
 import com.vanilla.healthmanagement.dao.ExamMapper;
 import com.vanilla.healthmanagement.pojo.Exam;
 import com.vanilla.healthmanagement.pojo.ExamExample;
@@ -44,6 +45,10 @@ public class ExamServiceImpl implements ExamService {
         if (StringUtils.isNotBlank(exam.getOlderName())) {
             criteria.andOlderNameLike("%" + exam.getOlderName() + "%").andActiveEqualTo(1);
         }
+        /*根据老人id进行查询*/
+        if (exam.getOlderId()!= null) {
+            criteria.andOlderIdEqualTo(exam.getOlderId()).andActiveEqualTo(1);
+        }
         /*根据时间模糊查询*/
         if(exam.getDate1()==null&&exam.getDate2()==null) {
             predate = StringToDate(curDate);
@@ -60,15 +65,22 @@ public class ExamServiceImpl implements ExamService {
             latedate = exam.getDate2();
         }
         criteria.andCreateDateBetween(predate, latedate).andActiveEqualTo(1);
+        /*按照id倒叙*/
         ExamExample.setOrderByClause("id desc");
         return ExamMapper.selectByExample(ExamExample);
     }
 
     @Override
     public List<Exam> getAll(Exam exam) {
-        ExamExample examExample = new ExamExample();
-        examExample.createCriteria().andActiveEqualTo(1);//只查状态为1的
-        return ExamMapper.selectByExample(examExample);
+        ExamExample ExamExample = new ExamExample();
+        ExamExample.Criteria criteria = ExamExample.createCriteria();
+        /*根据老人id进行查询*/
+        if (exam.getOlderId()!= null) {
+            criteria.andOlderIdEqualTo(exam.getOlderId()).andActiveEqualTo(1);
+        }else {
+            criteria.andActiveEqualTo(1);
+        }
+        return ExamMapper.selectByExample(ExamExample);
     }
 
     @Override

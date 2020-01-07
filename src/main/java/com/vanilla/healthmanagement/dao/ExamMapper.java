@@ -3,9 +3,13 @@ package com.vanilla.healthmanagement.dao;
 import com.vanilla.healthmanagement.pojo.Exam;
 import com.vanilla.healthmanagement.pojo.ExamExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface ExamMapper {
+
     long countByExample(ExamExample example);
 
     int deleteByExample(ExamExample example);
