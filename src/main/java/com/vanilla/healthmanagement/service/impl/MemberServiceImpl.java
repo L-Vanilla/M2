@@ -31,13 +31,15 @@ public class MemberServiceImpl implements MemberService {
         if (StringUtils.isNotBlank(member.getMemberName())) {
             criteria.andMemberNameLike("%" + member.getMemberName() + "%").andActiveEqualTo(1);
         }
+        /*根据老人姓名模糊查询*/
+        if(StringUtils.isNotBlank(member.getOlderName())){
+            criteria.andOlderNameLike("%" + member.getOlderName() + "%").andActiveEqualTo(1);
+        }
         else {
             criteria.andActiveEqualTo(1);
         }
-        MemberExample.setOrderByClause("id desc");
-//        if(Member.getActive()!=null)
-//            criteria.andActiveEqualTo(Member.getActive());
 
+        MemberExample.setOrderByClause("id desc");
         return MemberMapper.selectByExample(MemberExample);
     }
 
