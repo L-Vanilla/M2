@@ -954,6 +954,66 @@ public class OlderExample {
             addCriterion("older_phone not between", value1, value2, "olderPhone");
             return (Criteria) this;
         }
+
+        public Criteria andOlderBmiIsNull() {
+            addCriterion("older_bmi is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOlderBmiIsNotNull() {
+            addCriterion("older_bmi is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOlderBmiEqualTo(Integer value) {
+            addCriterion("older_bmi =", value, "olderBmi");
+            return (Criteria) this;
+        }
+
+        public Criteria andOlderBmiNotEqualTo(Integer value) {
+            addCriterion("older_bmi <>", value, "olderBmi");
+            return (Criteria) this;
+        }
+
+        public Criteria andOlderBmiGreaterThan(Integer value) {
+            addCriterion("older_bmi >", value, "olderBmi");
+            return (Criteria) this;
+        }
+
+        public Criteria andOlderBmiGreaterThanOrEqualTo(Integer value) {
+            addCriterion("older_bmi >=", value, "olderBmi");
+            return (Criteria) this;
+        }
+
+        public Criteria andOlderBmiLessThan(Integer value) {
+            addCriterion("older_bmi <", value, "olderBmi");
+            return (Criteria) this;
+        }
+
+        public Criteria andOlderBmiLessThanOrEqualTo(Integer value) {
+            addCriterion("older_bmi <=", value, "olderBmi");
+            return (Criteria) this;
+        }
+
+        public Criteria andOlderBmiIn(List<Integer> values) {
+            addCriterion("older_bmi in", values, "olderBmi");
+            return (Criteria) this;
+        }
+
+        public Criteria andOlderBmiNotIn(List<Integer> values) {
+            addCriterion("older_bmi not in", values, "olderBmi");
+            return (Criteria) this;
+        }
+
+        public Criteria andOlderBmiBetween(Integer value1, Integer value2) {
+            addCriterion("older_bmi between", value1, value2, "olderBmi");
+            return (Criteria) this;
+        }
+
+        public Criteria andOlderBmiNotBetween(Integer value1, Integer value2) {
+            addCriterion("older_bmi not between", value1, value2, "olderBmi");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

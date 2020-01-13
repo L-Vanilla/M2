@@ -30,7 +30,6 @@ public interface OlderMapper {
     int updateByPrimaryKeySelective(Older record);
 
     int updateByPrimaryKey(Older record);
-
     /*20-1-2用户登录*/
     Older selectByNameAndPwd(@Param("olderName") String olderName, @Param("olderPassword") String olderPassword);
 
@@ -49,4 +48,5 @@ public interface OlderMapper {
             "when older_age >80 then '80+'\n" +
             "end as age_temp from older where active=1)older group by age_temp;")
     List<Map<String,String>> Sum_OlderAge();
+
 }

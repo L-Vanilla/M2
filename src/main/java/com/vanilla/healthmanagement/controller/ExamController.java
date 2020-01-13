@@ -3,6 +3,7 @@ package com.vanilla.healthmanagement.controller;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import com.vanilla.healthmanagement.pojo.Exam;
+import com.vanilla.healthmanagement.pojo.Older;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +27,8 @@ import java.util.Map;
 public class ExamController {
     @Resource
     com.vanilla.healthmanagement.service.ExamService ExamService;
+    @Resource
+    com.vanilla.healthmanagement.service.OlderService OlderService;
     @GetMapping("/list")
     public PageInfo<Exam> getExam(Exam exam){
         List<Exam> exams =ExamService.getExams(exam);
@@ -46,6 +51,48 @@ public class ExamController {
     }
     @PostMapping("/add")
     public int add(Exam exam){
+        Older older=new Older();
+        older= OlderService.getOlderById(exam.getOlderId());
+        Integer score=0;
+        /*高压*/
+        if(90<exam.getExamHighbp()&&exam.getExamHighbp()<140){
+            score=score+10;
+        }
+        else if(140<=exam.getExamHighbp()&&exam.getExamHighbp()<=180){
+            score=score-5;
+        }
+        else if(exam.getExamHighbp()>180){
+            score=score-10;
+        }
+        /*低压*/
+        if(60<exam.getExamLowbp()&&exam.getExamLowbp()<90){
+            score=score+10;
+        }
+        else if(90<=exam.getExamLowbp()&&exam.getExamLowbp()<=110){
+            score=score-5;
+        }
+        else if(exam.getExamLowbp()>110){
+            score=score-10;
+        }
+        /*血糖*/
+        if(exam.getExamGlu().compareTo(new BigDecimal(2.8))==1&&exam.getExamGlu().compareTo(new BigDecimal(7.8))==-1){
+            score=score+10;
+        }
+        else if(exam.getExamGlu().compareTo(new BigDecimal(7.8))==1&&exam.getExamGlu().compareTo(new BigDecimal(11))==-1){
+            score=score-5;
+        }
+        else if(exam.getExamGlu().compareTo(new BigDecimal(11))==1){
+            score=score-10;
+        }
+        /*心率*/
+        if(60<=exam.getExamHr()&&exam.getExamHr()<100){
+            score=score+10;
+        }
+        else if(exam.getExamHr()>=100){
+            score=score-10;
+        }
+        older.setOlderBmi(older.getOlderBmi()+score);
+        OlderService.update(older);
         return ExamService.add(exam);
     }
     @GetMapping("/del")

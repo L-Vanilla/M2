@@ -56,7 +56,7 @@
         <!--//社区工作人员管理-->
         <!--<table tableName="worker"></table>-->
         <!--//老人个人信息管理-->
-        <!--<table tableName="older"></table>-->
+        <table tableName="older"></table>
         <!--//家庭成员管理-->
         <!--<table tableName="member"></table>-->
         <!--//诊断信息管理-->

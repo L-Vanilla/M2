@@ -29,6 +29,8 @@ public class Older extends MyPage{
 
     private String olderPhone;
 
+    private Integer olderBmi;
+
     public Integer getId() {
         return id;
     }
@@ -131,5 +133,13 @@ public class Older extends MyPage{
 
     public void setOlderPhone(String olderPhone) {
         this.olderPhone = olderPhone == null ? null : olderPhone.trim();
+    }
+
+    public Integer getOlderBmi() {
+        return olderBmi;
+    }
+
+    public void setOlderBmi(Integer olderBmi) {
+        this.olderBmi = olderBmi;
     }
 }
