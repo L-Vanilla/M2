@@ -60,7 +60,7 @@
         <!--//家庭成员管理-->
         <!--<table tableName="member"></table>-->
         <!--//诊断信息管理-->
-        <table tableName="diagnosis"></table>
+        <!--<table tableName="diagnosis"></table>-->
         <!--//急救信息管理-->
         <!--<table tableName="aid"></table>-->
         <!--//体检信息管理-->

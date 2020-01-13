@@ -10,6 +10,8 @@
     <result column="aid_remarks" jdbcType="VARCHAR" property="aidRemarks" />
     <result column="active" jdbcType="INTEGER" property="active" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="rank" jdbcType="INTEGER" property="rank" />
+    <result column="check_state" jdbcType="INTEGER" property="checkState" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, older_id, older_name, aid_date, aid_reason, aid_remarks, active, create_date
+    id, older_id, older_name, aid_date, aid_reason, aid_remarks, active, create_date, 
+    rank, check_state
   </sql>
   <select id="selectByExample" parameterType="com.vanilla.healthmanagement.pojo.AidExample" resultMap="BaseResultMap">
     select
@@ -105,10 +108,12 @@
   <insert id="insert" parameterType="com.vanilla.healthmanagement.pojo.Aid">
     insert into aid (id, older_id, older_name, 
       aid_date, aid_reason, aid_remarks, 
-      active, create_date)
+      active, create_date, rank, 
+      check_state)
     values (#{id,jdbcType=INTEGER}, #{olderId,jdbcType=INTEGER}, #{olderName,jdbcType=VARCHAR}, 
       #{aidDate,jdbcType=DATE}, #{aidReason,jdbcType=VARCHAR}, #{aidRemarks,jdbcType=VARCHAR}, 
-      #{active,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP})
+      #{active,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{rank,jdbcType=INTEGER}, 
+      #{checkState,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.vanilla.healthmanagement.pojo.Aid">
     insert into aid
@@ -137,6 +142,12 @@
       <if test="createDate != null">
         create_date,
       </if>
+      <if test="rank != null">
+        rank,
+      </if>
+      <if test="checkState != null">
+        check_state,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -162,6 +173,12 @@
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="checkState != null">
+        #{checkState,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -198,6 +215,12 @@
       <if test="record.createDate != null">
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.rank != null">
+        rank = #{record.rank,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkState != null">
+        check_state = #{record.checkState,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +235,9 @@
       aid_reason = #{record.aidReason,jdbcType=VARCHAR},
       aid_remarks = #{record.aidRemarks,jdbcType=VARCHAR},
       active = #{record.active,jdbcType=INTEGER},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      rank = #{record.rank,jdbcType=INTEGER},
+      check_state = #{record.checkState,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +266,12 @@
       <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="rank != null">
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="checkState != null">
+        check_state = #{checkState,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -252,7 +283,9 @@
       aid_reason = #{aidReason,jdbcType=VARCHAR},
       aid_remarks = #{aidRemarks,jdbcType=VARCHAR},
       active = #{active,jdbcType=INTEGER},
-      create_date = #{createDate,jdbcType=TIMESTAMP}
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      rank = #{rank,jdbcType=INTEGER},
+      check_state = #{checkState,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

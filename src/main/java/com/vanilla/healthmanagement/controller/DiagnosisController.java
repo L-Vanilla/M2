@@ -52,8 +52,8 @@ public class DiagnosisController {
     public Diagnosis getOne(Integer id){
         return DiagnosisService.getDiagnosisById(id);
     }
-    /*修改等级状态*/
 
+    /*修改等级状态*/
     @GetMapping("/updateRank")
     public int updateRank(Diagnosis diagnosis){
         diagnosis.setCheckState(1);

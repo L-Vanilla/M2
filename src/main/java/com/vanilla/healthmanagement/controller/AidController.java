@@ -2,6 +2,7 @@ package com.vanilla.healthmanagement.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.vanilla.healthmanagement.pojo.Aid;
+import com.vanilla.healthmanagement.pojo.Older;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,8 @@ import java.util.List;
 public class AidController {
     @Resource
     com.vanilla.healthmanagement.service.AidService AidService;
+    @Resource
+    com.vanilla.healthmanagement.service.OlderService OlderService;
     @GetMapping("/list")
     public PageInfo<Aid> getAid(Aid aid){
         List<Aid> aids =AidService.getAids(aid);
@@ -50,4 +53,23 @@ public class AidController {
         return AidService.getAidById(id);
     }
 
+    /*修改等级状态*/
+    @GetMapping("/updateRank")
+    public int updateRank(Aid aid){
+        aid.setCheckState(1);
+        Older older=new Older();
+        older= OlderService.getOlderById(aid.getOlderId());
+        /*等级*/
+        if(aid.getRank()==1){
+            older.setOlderBmi(older.getOlderBmi()-5);
+        }
+        else if(aid.getRank()==2){
+            older.setOlderBmi(older.getOlderBmi()-10);
+        }
+        else if(aid.getRank()==3){
+            older.setOlderBmi(older.getOlderBmi()-15);
+        }
+        OlderService.update(older);
+        return AidService.update(aid);
+    }
 }
