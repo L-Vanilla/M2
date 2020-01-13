@@ -21,7 +21,7 @@ import java.util.List;
 @Primary
 public class DiagnosisServiceImpl implements DiagnosisService {
     @Resource
-    DiagnosisMapper DiagnosisMapper;
+    com.vanilla.healthmanagement.dao.DiagnosisMapper DiagnosisMapper;
     @Override
     public List<Diagnosis> getDiagnosiss(Diagnosis diagnosis) {
 

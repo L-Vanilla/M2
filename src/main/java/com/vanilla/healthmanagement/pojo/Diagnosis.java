@@ -22,6 +22,10 @@ public class Diagnosis extends MyPage implements Serializable {
 
     private Integer active;
 
+    private Integer rank;
+
+    private Integer checkState;
+
     public Integer getId() {
         return id;
     }
@@ -92,5 +96,21 @@ public class Diagnosis extends MyPage implements Serializable {
 
     public void setActive(Integer active) {
         this.active = active;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
+    public Integer getCheckState() {
+        return checkState;
+    }
+
+    public void setCheckState(Integer checkState) {
+        this.checkState = checkState;
     }
 }

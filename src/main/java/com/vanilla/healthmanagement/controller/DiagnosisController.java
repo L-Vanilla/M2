@@ -2,6 +2,7 @@ package com.vanilla.healthmanagement.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.vanilla.healthmanagement.pojo.Diagnosis;
+import com.vanilla.healthmanagement.pojo.Older;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,8 @@ import java.util.List;
 public class DiagnosisController {
     @Resource
     com.vanilla.healthmanagement.service.DiagnosisService DiagnosisService;
+    @Resource
+    com.vanilla.healthmanagement.service.OlderService OlderService;
     @GetMapping("/list")
     public PageInfo<Diagnosis> getDiagnosis(Diagnosis diagnosis){
         List<Diagnosis> diagnosiss =DiagnosisService.getDiagnosiss(diagnosis);
@@ -49,5 +52,24 @@ public class DiagnosisController {
     public Diagnosis getOne(Integer id){
         return DiagnosisService.getDiagnosisById(id);
     }
+    /*修改等级状态*/
 
+    @GetMapping("/updateRank")
+    public int updateRank(Diagnosis diagnosis){
+        diagnosis.setCheckState(1);
+        Older older=new Older();
+        older= OlderService.getOlderById(diagnosis.getOlderId());
+        /*等级*/
+        if(diagnosis.getRank()==1){
+            older.setOlderBmi(older.getOlderBmi()-5);
+        }
+        else if(diagnosis.getRank()==2){
+            older.setOlderBmi(older.getOlderBmi()-10);
+        }
+        else if(diagnosis.getRank()==3){
+            older.setOlderBmi(older.getOlderBmi()-15);
+        }
+        OlderService.update(older);
+        return DiagnosisService.update(diagnosis);
+    }
 }
