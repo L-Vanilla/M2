@@ -42,7 +42,11 @@ public class VisitsController {
     public int del(Visits visits){
         return VisitsService.update(visits);
     }
-
+    /*修改随访状态*/
+    @GetMapping("/updateVisitsState")
+    public int updateVisitsState(Visits visits){
+        return VisitsService.update(visits);
+    }
     @PostMapping("/update")
     public int update(@Valid Visits visits, BindingResult bindingResult){
         return VisitsService.update(visits);

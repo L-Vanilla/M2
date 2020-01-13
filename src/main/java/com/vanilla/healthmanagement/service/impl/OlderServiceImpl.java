@@ -44,9 +44,18 @@ public class OlderServiceImpl implements OlderService {
 
     @Override
     public List<Older> getAll(Older older) {
-        OlderExample olderExample = new OlderExample();
-        olderExample.createCriteria().andActiveEqualTo(1);//只查状态为1的
-        return OlderMapper.selectByExample(olderExample);
+        OlderExample OlderExample = new OlderExample();
+        OlderExample.Criteria criteria = OlderExample.createCriteria();
+        if (older.getId()!=null) {
+            criteria.andIdEqualTo(older.getId()).andActiveEqualTo(1);
+        }
+        if (StringUtils.isNotBlank(older.getOlderName())) {
+            criteria.andOlderNameEqualTo(older.getOlderName()).andActiveEqualTo(1);
+        }
+        else {
+            criteria.andActiveEqualTo(1);
+        }
+        return OlderMapper.selectByExample(OlderExample);
     }
 
     @Override

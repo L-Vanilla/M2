@@ -42,9 +42,16 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<Admin> getAll(Admin admin) {
-        AdminExample adminExample = new AdminExample();
-        adminExample.createCriteria().andActiveEqualTo(1);//只查状态为1的
-        return AdminMapper.selectByExample(adminExample);
+        AdminExample AdminExample = new AdminExample();
+        AdminExample.Criteria criteria = AdminExample.createCriteria();
+        System.out.println("用户名Service"+admin.getName());
+        if (StringUtils.isNotBlank(admin.getName())) {
+            criteria.andNameEqualTo(admin.getName()).andActiveEqualTo(1);
+        }
+        else {
+            criteria.andActiveEqualTo(1);
+        }
+        return AdminMapper.selectByExample(AdminExample);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.vanilla.healthmanagement.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import com.vanilla.healthmanagement.pojo.Exam;
 import org.springframework.validation.BindingResult;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*体检信息管理
 * 19-1-3Vanilla
@@ -25,6 +28,15 @@ public class ExamController {
     public PageInfo<Exam> getExam(Exam exam){
         List<Exam> exams =ExamService.getExams(exam);
         PageInfo<Exam> pageInfo = new PageInfo<>(exams);
+        System.out.println("examlist:"+pageInfo);
+        return pageInfo;
+    }
+    /*根据老人id查询体检信息*/
+    @GetMapping("/getListByOlderId")
+    public PageInfo<Exam> getListByOlderId(Exam exam){
+        List<Exam> exams =ExamService.getExamsByOrderId(exam);
+        PageInfo<Exam> pageInfo = new PageInfo<>(exams);
+        System.out.println("examlist:"+pageInfo);
         return pageInfo;
     }
     @GetMapping("/getAll")
@@ -50,4 +62,16 @@ public class ExamController {
         return ExamService.getExamById(id);
     }
 
+    @GetMapping("/SumExam")
+    public String SumExam(){
+        Map<String,List<?>> map = new HashMap<>();
+        /*统计高压*/
+        map.put("examHighbps",ExamService.Sum_examHighbp());
+        /*统计低压*/
+        map.put("examLowbps",ExamService.Sum_examLowbp());
+//        /*统计老人的健康状态*/
+//        map.put("healthStates",OlderService.Sum_OlderHealthState());
+
+        return JSON.toJSONString(map);
+    }
 }

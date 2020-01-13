@@ -34,9 +34,6 @@ public class NewsServiceImpl implements NewsService {
             criteria.andActiveEqualTo(1);
         }
         NewsExample.setOrderByClause("id desc");
-//        if(News.getActive()!=null)
-//            criteria.andActiveEqualTo(News.getActive());
-
         return NewsMapper.selectByExample(NewsExample);
     }
 

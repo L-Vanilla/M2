@@ -143,16 +143,16 @@ public class OlderController {
         /*急救列表*/
         Aid aid=new Aid();
         aid.setOlderId(older.getId());
-
         map.put("members", MemberService.getAll(member));
         map.put("exams", ExamService.getAll(exam));
         map.put("diagnosiss", DiagnosisService.getAll(diagnosis));
         map.put("visitss", VisitsService.getAll(visits));
         map.put("aids", AidService.getAll(aid));
+        map.put("older", OlderService.getAll(older));
         return map;
     }
 
-    //ldf统计查询
+    //性别健康状态年龄统计查询
     @GetMapping("/SumOlder")
     public String SumOlder(){
         Map<String,List<?>> map = new HashMap<>();

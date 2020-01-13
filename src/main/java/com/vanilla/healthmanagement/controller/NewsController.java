@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 
 import com.vanilla.healthmanagement.pojo.HealthCare;
 import com.vanilla.healthmanagement.pojo.News;
+import com.vanilla.healthmanagement.pojo.Notice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,8 @@ public class NewsController {
     com.vanilla.healthmanagement.service.NewsService NewsService;
     @Resource
     com.vanilla.healthmanagement.service.HealthCareService HealthCareService;
+    @Resource
+    com.vanilla.healthmanagement.service.NoticeService NoticeService;
     @GetMapping("/list")
     public PageInfo<News> getNews(News news){
         List<News> newss =NewsService.getNewss(news);
@@ -35,6 +38,11 @@ public class NewsController {
     public List<News> getAll(News news){
 //        News.setActive(1);
         return NewsService.getAll(news);
+    }
+    /*修改点击率*/
+    @GetMapping("/updateClickNum")
+    public int updateClickNum(News news){
+        return NewsService.update(news);
     }
     @PostMapping("/add")
     public int add(News news){
@@ -82,10 +90,17 @@ public class NewsController {
         education.sethType("健康教育");
         List<HealthCare> educations=HealthCareService.getHealthCares(education);
         PageInfo<HealthCare> pageInfo3=new PageInfo<>(educations);
+        /*公告*/
+        Notice notice=new Notice();
+        notice.setPageSize(news.getPageSize());
+        notice.setPageNo(news.getPageNo());
+        List<Notice> notices=NoticeService.getNotices(notice);
+        PageInfo<Notice> pageInfo4=new PageInfo<>(notices);
         map.put("newss", pageInfo);
         map.put("cares", pageInfo1);
         map.put("preventions", pageInfo2);
         map.put("educations", pageInfo3);
+        map.put("notices", pageInfo4);
         return map;
     }
 

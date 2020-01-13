@@ -47,24 +47,49 @@ public class ExamServiceImpl implements ExamService {
         }
         /*根据老人id进行查询*/
         if (exam.getOlderId()!= null) {
+            System.out.println("exam中老人id:"+exam.getOlderId());
             criteria.andOlderIdEqualTo(exam.getOlderId()).andActiveEqualTo(1);
         }
         /*根据时间模糊查询*/
         if(exam.getDate1()==null&&exam.getDate2()==null) {
-            predate = StringToDate(curDate);
-            latedate = StringToDate(curDate2);
+            criteria.andActiveEqualTo(1);
         } else if (exam.getDate1()!=null&&exam.getDate2()==null) {
             predate = exam.getDate1();
             latedate = StringToDate(curDate2);
+            criteria.andCreateDateBetween(predate, latedate).andActiveEqualTo(1);
         }else if(exam.getDate1()==null&&exam.getDate2()!=null){
             predate = StringToDate(curDate);
             latedate = exam.getDate2();
+            criteria.andCreateDateBetween(predate, latedate).andActiveEqualTo(1);
         }
         else  {
             predate = exam.getDate1();
             latedate = exam.getDate2();
+            criteria.andCreateDateBetween(predate, latedate).andActiveEqualTo(1);
         }
-        criteria.andCreateDateBetween(predate, latedate).andActiveEqualTo(1);
+        /*按照id倒叙*/
+        ExamExample.setOrderByClause("id desc");
+        return ExamMapper.selectByExample(ExamExample);
+    }
+
+    /*根据老人id查询体检信息*/
+    @Override
+    public List<Exam> getExamsByOrderId(Exam exam) {
+
+        PageHelper.startPage(exam.getPageNo(), exam.getPageSize());
+        ExamExample ExamExample = new ExamExample();
+        ExamExample.Criteria criteria = ExamExample.createCriteria();
+
+        /*根据老人姓名进行模糊查询*/
+        if (StringUtils.isNotBlank(exam.getOlderName())) {
+            criteria.andOlderNameLike("%" + exam.getOlderName() + "%").andActiveEqualTo(1);
+        }
+        /*根据老人id进行查询*/
+        if (exam.getOlderId()!= null) {
+            System.out.println("exam中老人id:"+exam.getOlderId());
+            criteria.andOlderIdEqualTo(exam.getOlderId()).andActiveEqualTo(1);
+        }
+        criteria.andActiveEqualTo(1);
         /*按照id倒叙*/
         ExamExample.setOrderByClause("id desc");
         return ExamMapper.selectByExample(ExamExample);
@@ -115,6 +140,17 @@ public class ExamServiceImpl implements ExamService {
             e.printStackTrace();
         }
         return date;
+    }
+
+    /*统计高压*/
+    @Override
+    public List<Map<String,String>> Sum_examHighbp() {
+        return ExamMapper.Sum_examHighbp();
+    }
+    /*统计低压*/
+    @Override
+    public List<Map<String,String>> Sum_examLowbp() {
+        return ExamMapper.Sum_examLowbp();
     }
 
 }

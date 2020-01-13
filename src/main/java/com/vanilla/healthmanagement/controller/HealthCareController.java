@@ -29,6 +29,11 @@ public class HealthCareController {
 //        HealthCare.setActive(1);
         return HealthCareService.getAll(healthCare);
     }
+    /*修改点击率*/
+    @GetMapping("/updateClickNum")
+    public int updateClickNum(HealthCare healthCare){
+        return HealthCareService.update(healthCare);
+    }
     @PostMapping("/add")
     public int add(HealthCare healthCare){
         return HealthCareService.add(healthCare);

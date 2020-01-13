@@ -27,6 +27,7 @@ public class AdminController {
     }
     @GetMapping("/getAll")
     public List<Admin> getAll(Admin admin){
+        System.out.println("用户名"+admin.getName());
 //        Admin.setActive(1);
         return AdminService.getAll(admin);
     }
@@ -52,9 +53,6 @@ public class AdminController {
     @PostMapping("/login")
     public Admin login(@Param("name") String name, @Param("password") String password, HttpServletResponse response) {
         Admin admin = AdminService.getByNameAndPwd(name, password);
-//        session.setAttribute("admin",admin);
-//        System.out.println("session"+admin.getAdminName());
-//        AdminnamePasswordToken token = new AdminnamePasswordToken(adminName, adminPwd);
         Cookie cookie = new Cookie("adminName", admin.getName());
         cookie.setMaxAge(24 * 60 * 60); //存活期为1天
         cookie.setPath("/");
@@ -62,7 +60,6 @@ public class AdminController {
         System.out.println("cookie" + cookie.getValue());
         return admin;
     }
-    //    @MyLog(value = "退出")  //这里添加了AOP的自定义注解
     /*19-12-29管理员退出
     * */
     @GetMapping("/logout")
