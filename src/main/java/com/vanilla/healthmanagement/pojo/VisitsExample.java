@@ -874,6 +874,126 @@ public class VisitsExample {
             addCriterion("create_date not between", value1, value2, "createDate");
             return (Criteria) this;
         }
+
+        public Criteria andRankIsNull() {
+            addCriterion("rank is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankIsNotNull() {
+            addCriterion("rank is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankEqualTo(Integer value) {
+            addCriterion("rank =", value, "rank");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankNotEqualTo(Integer value) {
+            addCriterion("rank <>", value, "rank");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankGreaterThan(Integer value) {
+            addCriterion("rank >", value, "rank");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankGreaterThanOrEqualTo(Integer value) {
+            addCriterion("rank >=", value, "rank");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankLessThan(Integer value) {
+            addCriterion("rank <", value, "rank");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankLessThanOrEqualTo(Integer value) {
+            addCriterion("rank <=", value, "rank");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankIn(List<Integer> values) {
+            addCriterion("rank in", values, "rank");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankNotIn(List<Integer> values) {
+            addCriterion("rank not in", values, "rank");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankBetween(Integer value1, Integer value2) {
+            addCriterion("rank between", value1, value2, "rank");
+            return (Criteria) this;
+        }
+
+        public Criteria andRankNotBetween(Integer value1, Integer value2) {
+            addCriterion("rank not between", value1, value2, "rank");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateIsNull() {
+            addCriterion("check_state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateIsNotNull() {
+            addCriterion("check_state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateEqualTo(Integer value) {
+            addCriterion("check_state =", value, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateNotEqualTo(Integer value) {
+            addCriterion("check_state <>", value, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateGreaterThan(Integer value) {
+            addCriterion("check_state >", value, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("check_state >=", value, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateLessThan(Integer value) {
+            addCriterion("check_state <", value, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateLessThanOrEqualTo(Integer value) {
+            addCriterion("check_state <=", value, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateIn(List<Integer> values) {
+            addCriterion("check_state in", values, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateNotIn(List<Integer> values) {
+            addCriterion("check_state not in", values, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateBetween(Integer value1, Integer value2) {
+            addCriterion("check_state between", value1, value2, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateNotBetween(Integer value1, Integer value2) {
+            addCriterion("check_state not between", value1, value2, "checkState");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

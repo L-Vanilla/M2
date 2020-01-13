@@ -28,6 +28,10 @@ public class Visits extends MyPage implements Serializable {
 
     private Date createDate;
 
+    private Integer rank;
+
+    private Integer checkState;
+
     public Integer getId() {
         return id;
     }
@@ -122,5 +126,21 @@ public class Visits extends MyPage implements Serializable {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
+    public Integer getCheckState() {
+        return checkState;
+    }
+
+    public void setCheckState(Integer checkState) {
+        this.checkState = checkState;
     }
 }

@@ -1,6 +1,7 @@
 package com.vanilla.healthmanagement.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.vanilla.healthmanagement.pojo.Older;
 import com.vanilla.healthmanagement.pojo.Visits;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,8 @@ import java.util.UUID;
 public class VisitsController {
     @Resource
     com.vanilla.healthmanagement.service.VisitsService VisitsService;
+    @Resource
+    com.vanilla.healthmanagement.service.OlderService OlderService;
     @GetMapping("/list")
     public PageInfo<Visits> getVisits(Visits visits){
         List<Visits> visitss =VisitsService.getVisitss(visits);
@@ -122,4 +125,20 @@ public class VisitsController {
 //        }
 //        return null;
 //    }
+    /*修改等级状态*/
+    @GetMapping("/updateRank")
+    public int updateRank(Visits visits){
+        visits.setCheckState(1);
+        Older older=new Older();
+        older= OlderService.getOlderById(visits.getOlderId());
+        /*等级*/
+        if(visits.getRank()==2){
+            older.setOlderBmi(older.getOlderBmi()-5);
+        }
+        else if(visits.getRank()==3){
+            older.setOlderBmi(older.getOlderBmi()-10);
+        }
+        OlderService.update(older);
+        return VisitsService.update(visits);
+    }
 }
