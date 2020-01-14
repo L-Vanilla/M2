@@ -66,8 +66,21 @@ public class AidController {
         else if(aid.getRank()==2){
             older.setOlderBmi(older.getOlderBmi()-10);
         }
-        else if(aid.getRank()==3){
+        else {
             older.setOlderBmi(older.getOlderBmi()-15);
+        }
+        /*修改健康状态*/
+        if(older.getOlderBmi()>1200){
+            older.setOlderState(0);
+        }
+        else if (800<=older.getOlderBmi()&&older.getOlderBmi()<1200){
+            older.setOlderState(1);
+        }
+        else if (600<=older.getOlderBmi()&&older.getOlderBmi()<800){
+            older.setOlderState(2);
+        }
+        else if (older.getOlderBmi()<600){
+            older.setOlderState(3);
         }
         OlderService.update(older);
         return AidService.update(aid);

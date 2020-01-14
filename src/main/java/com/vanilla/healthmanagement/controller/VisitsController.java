@@ -138,6 +138,19 @@ public class VisitsController {
         else if(visits.getRank()==3){
             older.setOlderBmi(older.getOlderBmi()-10);
         }
+        /*修改健康状态*/
+        if(older.getOlderBmi()>1200){
+            older.setOlderState(0);
+        }
+        else if (800<=older.getOlderBmi()&&older.getOlderBmi()<1200){
+            older.setOlderState(1);
+        }
+        else if (600<=older.getOlderBmi()&&older.getOlderBmi()<800){
+            older.setOlderState(2);
+        }
+        else {
+            older.setOlderState(3);
+        }
         OlderService.update(older);
         return VisitsService.update(visits);
     }

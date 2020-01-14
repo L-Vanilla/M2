@@ -91,6 +91,19 @@ public class ExamController {
         else if(exam.getExamHr()>=100){
             score=score-10;
         }
+        /*修改健康状态*/
+        if(older.getOlderBmi()+score>1200){
+            older.setOlderState(0);
+        }
+        else if (800<=older.getOlderBmi()+score&&older.getOlderBmi()+score<1200){
+            older.setOlderState(1);
+        }
+        else if (600<=older.getOlderBmi()+score&&older.getOlderBmi()+score<800){
+            older.setOlderState(2);
+        }
+        else if (older.getOlderBmi()+score<600){
+            older.setOlderState(3);
+        }
         older.setOlderBmi(older.getOlderBmi()+score);
         OlderService.update(older);
         return ExamService.add(exam);
