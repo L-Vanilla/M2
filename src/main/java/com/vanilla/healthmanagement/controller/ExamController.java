@@ -56,7 +56,7 @@ public class ExamController {
         Integer score=0;
         /*高压*/
         if(90<exam.getExamHighbp()&&exam.getExamHighbp()<140){
-            score=score+10;
+            score=score+5;
         }
         else if(140<=exam.getExamHighbp()&&exam.getExamHighbp()<=180){
             score=score-5;
@@ -66,7 +66,7 @@ public class ExamController {
         }
         /*低压*/
         if(60<exam.getExamLowbp()&&exam.getExamLowbp()<90){
-            score=score+10;
+            score=score+5;
         }
         else if(90<=exam.getExamLowbp()&&exam.getExamLowbp()<=110){
             score=score-5;
@@ -76,7 +76,7 @@ public class ExamController {
         }
         /*血糖*/
         if(exam.getExamGlu().compareTo(new BigDecimal(2.8))==1&&exam.getExamGlu().compareTo(new BigDecimal(7.8))==-1){
-            score=score+10;
+            score=score+5;
         }
         else if(exam.getExamGlu().compareTo(new BigDecimal(7.8))==1&&exam.getExamGlu().compareTo(new BigDecimal(11))==-1){
             score=score-5;
@@ -86,7 +86,7 @@ public class ExamController {
         }
         /*心率*/
         if(60<=exam.getExamHr()&&exam.getExamHr()<100){
-            score=score+10;
+            score=score+5;
         }
         else if(exam.getExamHr()>=100){
             score=score-10;
